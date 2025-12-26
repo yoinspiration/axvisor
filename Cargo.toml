@@ -84,10 +84,6 @@ page_table_multiarch = "0.5"
 rdif-intc = "0.12"
 rdrive = "0.18"
 
-# percpu "0.2.1" can not compile on aarch64
-percpu = {version = "=0.2.0", features = ["arm-el2"]}
-percpu_macros = "=0.2.0"
-
 axdevice = {git = "https://github.com/arceos-hypervisor/axdevice.git"}
 axdevice_base = "0.1"
 axplat-aarch64-dyn = {path = "platform/axplat-aarch64-dyn", features = ["irq", "smp", "hv"]}
