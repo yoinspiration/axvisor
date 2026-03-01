@@ -1,0 +1,8 @@
+case_id	scenario	case_name	arch	board	vmconfigs	vmimage_name
+qemu-aarch64-arceos	qemu	ArceOS	aarch64		configs/vms/arceos-aarch64-qemu-smp1.toml	qemu_aarch64_arceos
+qemu-aarch64-linux	qemu	Linux	aarch64		configs/vms/linux-aarch64-qemu-smp1.toml	qemu_aarch64_linux
+qemu-x86_64-nimbos	qemu	NimbOS	x86_64		configs/vms/nimbos-x86_64-qemu-smp1.toml	qemu_x86_64_nimbos
+board-phytiumpi-arceos	board	ArceOS		phytiumpi	configs/vms/arceos-aarch64-e2000-smp1.toml	
+board-phytiumpi-linux	board	Linux		phytiumpi	configs/vms/linux-aarch64-e2000-smp1.toml	
+board-roc-rk3568-pc-arceos	board	ArceOS		roc-rk3568-pc	configs/vms/arceos-aarch64-rk3568-smp1.toml	
+board-roc-rk3568-pc-linux	board	Linux		roc-rk3568-pc	configs/vms/linux-aarch64-rk3568-smp1.toml	

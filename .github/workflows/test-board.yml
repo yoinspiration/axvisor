@@ -4,22 +4,26 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   test-board:
-    name: "Test board: ${{ matrix.board }} - ${{ matrix.vmconfigs_name }}"
+    name: "Test board: ${{ matrix.board }} - ${{ matrix.case_name }}"
     strategy:
       matrix:
         include:
-          - board: phytiumpi
+          - case_id: board-phytiumpi-arceos
+            case_name: ArceOS
+            board: phytiumpi
             vmconfigs: configs/vms/arceos-aarch64-e2000-smp1.toml
-            vmconfigs_name: ArceOS
-          - board: phytiumpi
+          - case_id: board-phytiumpi-linux
+            case_name: Linux
+            board: phytiumpi
             vmconfigs: configs/vms/linux-aarch64-e2000-smp1.toml
-            vmconfigs_name: Linux
-          - board: roc-rk3568-pc
+          - case_id: board-roc-rk3568-pc-arceos
+            case_name: ArceOS
+            board: roc-rk3568-pc
             vmconfigs: configs/vms/arceos-aarch64-rk3568-smp1.toml
-            vmconfigs_name: ArceOS
-          - board: roc-rk3568-pc
+          - case_id: board-roc-rk3568-pc-linux
+            case_name: Linux
+            board: roc-rk3568-pc
             vmconfigs: configs/vms/linux-aarch64-rk3568-smp1.toml
-            vmconfigs_name: Linux
       fail-fast: false
     runs-on:
       - self-hosted
@@ -39,18 +43,49 @@ jobs:
           clean: true
           submodules: recursive
 
-      - name: Install dependencies
-        run: cargo +stable install ostool --version ^0.8
+      - name: Run CI suite
+        id: run_suite
+        continue-on-error: true
+        env:
+          CI_SCENARIO: board
+          CI_CASE_ID: ${{ matrix.case_id }}
+          CI_CASE_NAME: ${{ matrix.case_name }}
+          MATRIX_BOARD: ${{ matrix.board }}
+          MATRIX_VMCONFIGS: ${{ matrix.vmconfigs }}
+        run: bash scripts/ci/run_ci_suite.sh
 
-      - name: Run tests
+      - name: Analyze test results
+        id: analyze
+        if: always()
+        continue-on-error: true
         run: |
-          echo $BOARD_POWER_RESET
-          export RUST_LOG=debug
-          cargo xtask uboot \
-            --build-config configs/board/${{ matrix.board }}.toml \
-            --uboot-config .github/workflows/uboot.toml \
-            --vmconfigs ${{ matrix.vmconfigs }} \
-            --bin-dir /home/runner/tftp
-          # cargo xtask uboot \
-          #   --build-config configs/board/${{ matrix.board }}.toml \
-          #   --uboot-config .github/workflows/uboot.toml
+          python3 scripts/ci/analyze_ci_results.py --artifact-dir ci-artifacts --fail-on-error
+
+      - name: Publish summary
+        if: always()
+        run: |
+          if [ -f ci-artifacts/report/summary.md ]; then
+            cat ci-artifacts/report/summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No report generated." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload CI artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-board-${{ matrix.case_id }}
+          path: ci-artifacts
+          if-no-files-found: warn
+
+      - name: Check suite status
+        if: always()
+        run: |
+          if [ "${{ steps.run_suite.outcome }}" = "failure" ]; then
+            echo "CI suite failed"
+            exit 1
+          fi
+          if [ "${{ steps.analyze.outcome }}" = "failure" ]; then
+            echo "Result analysis reported failures"
+            exit 1
+          fi
