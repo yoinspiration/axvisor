@@ -1,6 +1,12 @@
 name: Test with axci (pilot)
 
 on:
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - '**'
+  pull_request:
   workflow_dispatch:
     inputs:
       test_targets:
