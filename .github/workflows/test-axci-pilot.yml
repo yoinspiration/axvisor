@@ -1,0 +1,29 @@
+name: Test with axci (pilot)
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_targets:
+        description: 'Targets for axci workflow (auto/all/axvisor/starry or comma-separated target keys)'
+        required: false
+        default: 'auto'
+        type: string
+      base_ref:
+        description: 'Base ref used when test_targets=auto'
+        required: false
+        default: 'origin/main'
+        type: string
+      runs_on:
+        description: 'Runner labels JSON for reusable workflow, e.g. ["self-hosted","Linux","X64"]'
+        required: false
+        default: '["self-hosted","Linux","X64"]'
+        type: string
+
+jobs:
+  test:
+    uses: yoinspiration/axci/.github/workflows/test.yml@feat/ci-test-selection-hardening
+    with:
+      crate_name: "axvisor"
+      test_targets: ${{ inputs.test_targets }}
+      base_ref: ${{ inputs.base_ref }}
+      runs_on: ${{ inputs.runs_on }}
