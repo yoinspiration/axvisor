@@ -34,3 +34,5 @@ jobs:
       base_ref: ${{ inputs.base_ref || (github.event_name == 'push' && github.event.before || 'origin/master') }}
       runs_on: ${{ inputs.runs_on || '["self-hosted","Linux","X64"]' }}
       axci_ref: "feat/ci-test-selection-hardening"
+      axvisor_repo: "yoinspiration/axvisor"
+      axvisor_ref: ${{ github.ref_name }}
