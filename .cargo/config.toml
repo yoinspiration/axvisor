@@ -4,8 +4,8 @@ git-fetch-with-cli = true
 
 [target.aarch64-unknown-none-softfloat]
 rustflags = [
-    "-Crelocation-model=pic",
-    "-Clink-args=-pie",
+    "-Crelocation-model=static",
+    "-Clink-args=-no-pie",
     "-Clink-args=-znostart-stop-gc",
     "-Clink-args=-Taxplat.x",
 ]
@@ -17,7 +17,7 @@ runner = "cargo osrun"
 rustflags = [
     "-Clink-args=-no-pie",
     "-Clink-args=-znostart-stop-gc",
-    "-Clink-args=-Tlink.x",
+    "-Clink-args=-Taxplat.x",
 ]
 
 [alias]
