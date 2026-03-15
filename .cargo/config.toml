@@ -17,7 +17,7 @@ runner = "cargo osrun"
 rustflags = [
     "-Clink-args=-no-pie",
     "-Clink-args=-znostart-stop-gc",
-    "-Clink-args=-Taxplat.x",
+    "-Clink-args=-Tlink.x",
 ]
 
 [alias]
