@@ -33,3 +33,4 @@ jobs:
       test_targets: ${{ inputs.test_targets }}
       base_ref: ${{ inputs.base_ref }}
       runs_on: ${{ inputs.runs_on }}
+      axci_ref: "feat/ci-test-selection-hardening"
