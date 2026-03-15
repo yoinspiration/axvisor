@@ -30,7 +30,7 @@ jobs:
     uses: yoinspiration/axci/.github/workflows/test.yml@feat/ci-test-selection-hardening
     with:
       crate_name: "axvisor"
-      test_targets: ${{ inputs.test_targets }}
-      base_ref: ${{ inputs.base_ref }}
-      runs_on: ${{ inputs.runs_on }}
+      test_targets: ${{ inputs.test_targets || 'auto' }}
+      base_ref: ${{ inputs.base_ref || 'origin/master' }}
+      runs_on: ${{ inputs.runs_on || '["self-hosted","Linux","X64"]' }}
       axci_ref: "feat/ci-test-selection-hardening"
