@@ -19,6 +19,10 @@ qemu.log
 /**/.project.*
 /**/.board.*
 
+# Local test results and axci-checked-out modules
+/test-results/
+/modules/
+
 # dev env
 /crates/*
 !/crates/nop/

@@ -113,4 +113,4 @@ You are also welcome to scan the QR code below to join the discussion group (ple
 
 # License
 
-Axvisor is licensed under the Apache License, Version 2.0. See the [LICENSE](./LICENSE) file for details.<!-- multi-org lock test 2026-03-15T09:07:01+08:00 -->
+Axvisor is licensed under the Apache License, Version 2.0. See the [LICENSE](./LICENSE) file for details.

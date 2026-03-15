@@ -1,2 +1,38 @@
+name: Test
 
-# lock-verify axvisor 1773529490
+on:
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - '**'
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      test_targets:
+        description: 'Targets to test (auto/all/axvisor/starry or comma-separated target keys)'
+        required: false
+        default: 'auto'
+        type: string
+      base_ref:
+        description: 'Base ref used when test_targets=auto'
+        required: false
+        default: 'origin/master'
+        type: string
+      runs_on:
+        description: 'Runner labels JSON, e.g. ["self-hosted","Linux","X64"]'
+        required: false
+        default: '["self-hosted","Linux","X64"]'
+        type: string
+
+jobs:
+  test:
+    uses: yoinspiration/axci/.github/workflows/test.yml@test/auto-target-regression
+    with:
+      crate_name: "axvisor"
+      test_targets: ${{ inputs.test_targets || 'auto' }}
+      base_ref: ${{ inputs.base_ref || (github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000' && github.event.before || 'origin/master') }}
+      runs_on: ${{ github.event_name == 'workflow_dispatch' && inputs.runs_on || '["self-hosted","Linux","X64","intel"]' }}
+      axci_ref: "test/auto-target-regression"
+      axvisor_repo: "yoinspiration/axvisor"
+      axvisor_ref: ${{ github.ref_name }}
