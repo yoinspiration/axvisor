@@ -31,6 +31,6 @@ jobs:
     with:
       crate_name: "axvisor"
       test_targets: ${{ inputs.test_targets || 'auto' }}
-      base_ref: ${{ inputs.base_ref || 'origin/master' }}
+      base_ref: ${{ inputs.base_ref || (github.event_name == 'push' && github.event.before || 'origin/master') }}
       runs_on: ${{ inputs.runs_on || '["self-hosted","Linux","X64"]' }}
       axci_ref: "feat/ci-test-selection-hardening"
