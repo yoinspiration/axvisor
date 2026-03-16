@@ -1,0 +1,148 @@
+{
+  "non_code": {
+    "dirs": [
+      "doc/",
+      "docs/"
+    ],
+    "exts": [
+      ".md",
+      ".txt",
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".svg",
+      ".gif"
+    ],
+    "files": [
+      "LICENSE",
+      ".gitignore",
+      ".gitattributes"
+    ]
+  },
+  "run_all_patterns": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "rust-toolchain.toml",
+    "tests.sh",
+    "check.sh",
+    ".github/workflows/*",
+    "xtask/*",
+    "src/hal/*"
+  ],
+  "run_all_exclude_patterns": [
+    "src/hal/arch/*"
+  ],
+  "selection_rules": [
+    {
+      "id": "aarch64_path",
+      "patterns": [
+        "src/hal/arch/aarch64/*",
+        "configs/board/qemu-aarch64.toml",
+        "configs/vms/*aarch64*"
+      ],
+      "targets": [
+        "axvisor-qemu-aarch64-arceos",
+        "axvisor-qemu-aarch64-linux",
+        "axvisor-board-phytiumpi-arceos",
+        "axvisor-board-phytiumpi-linux",
+        "axvisor-board-roc-rk3568-pc-arceos",
+        "axvisor-board-roc-rk3568-pc-linux"
+      ]
+    },
+    {
+      "id": "x86_64_path",
+      "patterns": [
+        "src/hal/arch/x86_64/*",
+        "configs/board/qemu-x86_64.toml",
+        "configs/vms/*x86_64*"
+      ],
+      "targets": [
+        "axvisor-qemu-x86_64-nimbos"
+      ]
+    },
+    {
+      "id": "phytium_path",
+      "patterns": [
+        "*phytium*",
+        "*e2000*"
+      ],
+      "targets": [
+        "axvisor-board-phytiumpi-arceos",
+        "axvisor-board-phytiumpi-linux"
+      ]
+    },
+    {
+      "id": "rk3568_path",
+      "patterns": [
+        "*rk3568*",
+        "*rockchip*"
+      ],
+      "targets": [
+        "axvisor-board-roc-rk3568-pc-arceos",
+        "axvisor-board-roc-rk3568-pc-linux"
+      ]
+    }
+  ],
+  "target_order": [
+    "axvisor-qemu-aarch64-arceos",
+    "axvisor-qemu-aarch64-linux",
+    "axvisor-qemu-x86_64-nimbos",
+    "axvisor-board-phytiumpi-arceos",
+    "axvisor-board-phytiumpi-linux",
+    "axvisor-board-roc-rk3568-pc-arceos",
+    "axvisor-board-roc-rk3568-pc-linux"
+  ],
+  "run_all_crates": [
+    "axruntime",
+    "axconfig"
+  ],
+  "crate_rules": [
+    {
+      "id": "crate_x86_platform",
+      "crates": ["axplat-x86-qemu-q35"],
+      "targets": ["axvisor-qemu-x86_64-nimbos"],
+      "direct_only": false
+    },
+    {
+      "id": "crate_axfs",
+      "crates": ["axfs"],
+      "targets": [
+        "axvisor-qemu-aarch64-arceos",
+        "axvisor-qemu-aarch64-linux",
+        "axvisor-board-phytiumpi-arceos",
+        "axvisor-board-phytiumpi-linux",
+        "axvisor-board-roc-rk3568-pc-arceos",
+        "axvisor-board-roc-rk3568-pc-linux"
+      ],
+      "direct_only": false
+    }
+  ],
+  "crate_path_rules": [
+    {
+      "id": "driver_phytium",
+      "crates": ["driver"],
+      "path_patterns": ["*phytium*", "*e2000*"],
+      "targets": ["axvisor-board-phytiumpi-arceos", "axvisor-board-phytiumpi-linux"],
+      "direct_only": false
+    },
+    {
+      "id": "driver_rockchip",
+      "crates": ["driver"],
+      "path_patterns": ["*rk3568*", "*rockchip*"],
+      "targets": ["axvisor-board-roc-rk3568-pc-arceos", "axvisor-board-roc-rk3568-pc-linux"],
+      "direct_only": false
+    },
+    {
+      "id": "driver_generic",
+      "crates": ["driver"],
+      "path_patterns": ["*"],
+      "targets": [
+        "axvisor-board-phytiumpi-arceos",
+        "axvisor-board-phytiumpi-linux",
+        "axvisor-board-roc-rk3568-pc-arceos",
+        "axvisor-board-roc-rk3568-pc-linux"
+      ],
+      "direct_only": false
+    }
+  ]
+}
