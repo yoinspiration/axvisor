@@ -36,6 +36,7 @@ mod menuconfig;
 mod tbuld;
 mod vmconfig;
 
+// CI: axci target selection uses changes under `xtask/*` to run regression.
 #[derive(Parser)]
 #[command(name = "xtask")]
 #[command(about = "ArceOS build configuration management tool")]
