@@ -35,7 +35,7 @@ d88P     888  888  888      Y8P      888   88888P'   "Y88P"   888
 "#,
 ];
 
-/// Chooses a logo based on the current time.
+/// Chooses a logo based on wall-clock time.
 fn choose_logo() -> &'static str {
     let elapsed = ax_wall_time().as_micros() as usize;
     LOGO[elapsed % LOGO.len()]
