@@ -5,6 +5,7 @@ git-fetch-with-cli = true
 [target.aarch64-unknown-none-softfloat]
 rustflags = [
     "-Crelocation-model=static",
+    "-Ccode-model=large",
     "-Clink-args=-no-pie",
     "-Clink-args=-znostart-stop-gc",
     "-Clink-args=-Taxplat.x",
