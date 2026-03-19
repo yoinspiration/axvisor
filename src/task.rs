@@ -51,7 +51,7 @@ pub trait AsVCpuTask {
 impl AsVCpuTask for TaskInner {
     fn as_vcpu_task(&self) -> &VCpuTask {
         self.task_ext()
-            .expect("Not a VCpuTask")
+            .expect("Task extension is not VCpuTask")
             .downcast_ref::<VCpuTask>()
     }
 }
