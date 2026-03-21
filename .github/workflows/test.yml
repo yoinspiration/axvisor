@@ -1,5 +1,6 @@
 name: Test
 # Trigger full test run
+# 本文件变更在 axci run_all_patterns（.github/workflows/*）内，push 且 test_targets=auto 时会跑全量矩阵。
 
 on:
   push:
