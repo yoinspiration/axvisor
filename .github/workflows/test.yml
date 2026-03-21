@@ -1,4 +1,5 @@
 name: Test
+# Trigger full test run
 
 on:
   push:
