@@ -99,6 +99,10 @@ AxVisor uses the xtask tool for build management, supporting multiple hardware p
 
 To quickly run AxVisor on QEMU with a guest OS (ArceOS / Linux / NimbOS), see the [QEMU Quickstart Guide](doc/qemu-quickstart.md).
 
+## Continuous Integration (CI)
+
+AxVisor delegates automated testing to [axci](https://github.com/yoinspiration/axci). For workflow inputs and `.github/axci-test-target-rules.json`, see [doc/axci-integration.md](doc/axci-integration.md) (简体中文).
+
 # Contributing
 
 Welcome to fork this repository and submit pull requests. The existence and development of this project is thanks to the support of all contributors.
