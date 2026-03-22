@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! AArch64 HAL module for board (phytiumpi, rk3568) and QEMU targets.
+
 use aarch64_cpu_ext::registers::*;
 
 mod api;
