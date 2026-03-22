@@ -120,22 +120,22 @@
   "crate_path_rules": [
     {
       "id": "driver_phytium",
-      "crates": ["driver"],
+      "crates": ["axvisor"],
       "path_patterns": ["*phytium*", "*e2000*"],
       "targets": ["axvisor-board-phytiumpi-arceos", "axvisor-board-phytiumpi-linux"],
       "direct_only": false
     },
     {
       "id": "driver_rockchip",
-      "crates": ["driver"],
+      "crates": ["axvisor"],
       "path_patterns": ["*rk3568*", "*rockchip*"],
       "targets": ["axvisor-board-roc-rk3568-pc-arceos", "axvisor-board-roc-rk3568-pc-linux"],
       "direct_only": false
     },
     {
       "id": "driver_generic",
-      "crates": ["driver"],
-      "path_patterns": ["*"],
+      "crates": ["axvisor"],
+      "path_patterns": ["*driver*"],
       "targets": [
         "axvisor-board-phytiumpi-arceos",
         "axvisor-board-phytiumpi-linux",
