@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Phytium MCI block driver for Phytium Pi (飞腾派) board.
+
 use axklib::{mem::iomap, time::busy_wait};
 
 use core::{
